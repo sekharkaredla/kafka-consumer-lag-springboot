@@ -21,13 +21,16 @@ public class ProducerComponent {
     @Value("${kafka_topic_name}")
     private String topicName;
 
+    @Value("${wait_time_producer}")
+    private int waitTime;
+
     private void sendEvent(String message) {
         String finalMessage = message + " -- " + new Date();
         logger.info("Sending Message : " + finalMessage);
         this.kafkaTemplate.send(topicName, finalMessage);
     }
 
-    public void sendEventsWithTimeDelay(String message, long waitTime) {
+    public void sendEventsWithTimeDelay(String message, int waitTime) {
         while (true) {
             try {
                 Thread.sleep(waitTime);
@@ -41,7 +44,7 @@ public class ProducerComponent {
 
     @PostConstruct
     public void startPublishing() {
-        this.sendEventsWithTimeDelay("Producer", 3000);
+        this.sendEventsWithTimeDelay("Producer", waitTime);
     }
 
 }
