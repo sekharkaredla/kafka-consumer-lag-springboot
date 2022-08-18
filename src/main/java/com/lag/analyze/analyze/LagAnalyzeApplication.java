@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AnalyzeApplication {
+public class LagAnalyzeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AnalyzeApplication.class, args);
+		SpringApplication.run(LagAnalyzeApplication.class, args);
 	}
 
 }
