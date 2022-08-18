@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.ExecutionException;
-
 @RestController
 @RequestMapping("/lag")
 public class LagController {
@@ -20,7 +18,7 @@ public class LagController {
     @GetMapping("/{groupName}")
     public ResponseEntity showLag(@PathVariable String groupName) {
         try {
-            return ResponseEntity.ok(lagAnalyzerService.analyzeLag(groupName));
+            return ResponseEntity.ok().body(lagAnalyzerService.analyzeLag(groupName));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getStackTrace());
         }
