@@ -71,7 +71,8 @@ public class LagAnalyzerService {
         return lags;
     }
 
-    public void analyzeLag(String groupId) throws ExecutionException, InterruptedException {
+    public Map<String, Map<Integer, Long>> analyzeLag(String groupId) throws ExecutionException, InterruptedException {
+        Map<String, Map<Integer, Long>> response = new HashMap<>();
         Map<TopicPartition, Long> consumerGrpOffsets = getConsumerGrpOffsets(groupId);
         Map<TopicPartition, Long> producerOffsets = getProducerOffsets(consumerGrpOffsets);
         Map<TopicPartition, Long> lags = computeLags(consumerGrpOffsets, producerOffsets);
@@ -79,11 +80,10 @@ public class LagAnalyzerService {
             String topic = lagEntry.getKey().topic();
             int partition = lagEntry.getKey().partition();
             Long lag = lagEntry.getValue();
-            System.out.printf("Time=%s | Lag for topic = %s, partition = %s is %d\n",
-                    "",
-                    topic,
-                    partition,
-                    lag);
+            Map<Integer, Long> topicMap = response.getOrDefault(topic, new HashMap<>());
+            topicMap.put(partition, lag);
+            response.put(topic, topicMap);
         }
+        return response;
     }
 }
