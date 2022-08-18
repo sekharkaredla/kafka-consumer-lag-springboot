@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LagController {
 
     @Autowired
-    public LagAnalyzerService lagAnalyzerService;
+    private LagAnalyzerService lagAnalyzerService;
 
     @GetMapping("/{groupName}")
     public ResponseEntity showLag(@PathVariable String groupName) {
