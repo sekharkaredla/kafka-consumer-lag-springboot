@@ -91,7 +91,7 @@ Lag increasing in later stages
 </ol>
 
 
-# Additional comments
+# Additional commands
 ```bash
 docker-compose -f .\kafka_setup.yml up -d
 
